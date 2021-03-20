@@ -1,7 +1,9 @@
+
+
+<%@page import="Entity.Player"%>
 <%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
 	
 <!DOCTYPE html>
 <html>
@@ -20,10 +22,10 @@
 	crossorigin="anonymous">
 
 <style> 
-	<%@ include file="GameCss.css"%>
+	<%@ include file="./styles/GameCss.css"%>
 </style>
 <meta charset="ISO-8859-1">
-<title>Snakes and Ladders</title>
+<title>GK Snakes and Ladders</title>
 </head>
 <body onload="cursorPosition()">
 <div class="container-fluid">
@@ -57,8 +59,7 @@
   
 <div class="container">
   <div id='main'>
-<!--   style="pointer-events: none" -->
-  <form action="GetBlockValue" method="post" style="pointer-events: none">
+  <form action="GetBlockValueGk" method="post" style="pointer-events: none">
 		    <div class='box' id='100'><button onclick="playAudio()" class='button5' name="block" value="100">100</button></div>	
 			<div class='box' id='99'><button onclick="playAudio()" class='button5' name="block" value="99">99</button></div>	
 			<div class='box' id='98'><button onclick="playAudio()" class='button5' name="block" value="98">98</button></div>	
@@ -190,12 +191,18 @@
        
        
   <% 
-   int positionBack = 1;
-   if (request.getParameter("pos") != null)
-	   positionBack = Integer.parseInt(request.getParameter("pos"));
-   else
-	   positionBack = 1;
-   
+  	/* Getting Player Object from Session */
+  	Player player=null;
+  	if(session.getAttribute("newSession") == null)
+		response.sendRedirect("login.jsp");
+	else
+	{
+		player = (Player)request.getSession().getAttribute("itsme");
+	}
+  
+  
+  
+   int positionBack = player.getPosition();
    System.out.println(positionBack);
   %>
        
@@ -213,8 +220,62 @@
      } 
 	 
 	 
+	 	var position = 1;
+	    
+	 	var currentPosition = 1;
+		var snakeAndLadderPos = [
+		
+		{old: 19, new: 38},
+		{old: 11, new: 28},
+		{old: 24, new: 6},
+		{old: 15, new: 34},
+		{old: 25, new: 44},
+		{old: 59, new: 38},
+		{old: 32, new: 53},
+		{old: 50, new: 30},
+		{old: 51, new: 72},
+		{old: 68, new: 36},
+		{old: 58, new: 65},
+		{old: 59, new: 38},
+		{old: 60, new: 79},
+		{old: 94, new: 75},
+		{old: 77, new: 98},
+		{old: 76, new: 66},
+		{old: 67, new: 88},
+		{old: 91, new: 72},
+		{old: 99, new: 78}
+	];
+
+
+
+	function moveCursor(digits) {
+		var cursorElem = document.getElementById("cursor");
+		var newPosElem = document.getElementById(position = position + digits);
+		newPosElem.children[0].append(cursorElem);
+		checkSnakeOrLadder();
+		
+		
+	 	document.getElementById("cursor").click(); 
+		currentPosition = document.getElementById("cursor");
+	}
+
+
+
+
+	function checkSnakeOrLadder() {
+		var cursorElem = document.getElementById("cursor");
+		for(var i = 0; i < snakeAndLadderPos.length; i++){
+			if(snakeAndLadderPos[i].old === position){
+				position = snakeAndLadderPos[i].new;
+				break;
+			}
+		}
+		var newPosElem = document.getElementById(position);
+		newPosElem.children[0].append(cursorElem);
+	}
+	 
      </script>
-     <script src="GameScript.js" type="text/javascript"></script>
+     <!-- <script src="./scripts/GameScript.js" type="text/javascript"></script> -->
      	
   </div>
 	</div>

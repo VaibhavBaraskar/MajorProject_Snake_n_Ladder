@@ -1,40 +1,95 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    
-    
-<%-- <%
-if (session.getAttribute("myAuth") == null) {
-	response.sendRedirect("/s_airlines/admin.jsp");
+<%@page import="Entity.User"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+
+
+
+<%
+if (session.getAttribute("newSession") == null)
+	response.sendRedirect("login.jsp");
+else {
+	Object playerObj = session.getAttribute("playerObject");
+	User player = (User) playerObj;
+	System.out.println(player.getId());
 }
 %>
- --%>    
-    
 
-<html lang="en">
+
+<!DOCTYPE html>
+<html>
 <head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<title>Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<style>
+<%@ include file= "./styles/index.css" %>
+</style>
 </head>
 <body>
 
-<jsp:include page="Header.jsp"></jsp:include>
 
-<div class="d-flex align-content-center justify-content-center">
+	<div class="nav-bar">
+		<div class="nav-logo">
+			<img src="./images/logo.png">
+		</div>
+		<div class="nav-links" id="mobileMenu">
+			<ul>
+				<a href="index.jsp"><li>Home</li></a>
+				<a href="read-leaderboard"><li>Leader board</li></a>
+				<a href="#"><li>Contact Us</li></a>
+				<a href="#"><li>About</li></a>
+				<a href="logout"><li>Log Out</li></a>
+			</ul>
+		</div>
+		<img src="menu-icon.png" class="menu-icon" onclick="showMenu()">
+	</div>
 
-<img src="/MajorProject/images/th.jpeg" style="margin-top:10%;width:250pt">
+	<div class="hero">
+		<h1>Snakes & Ladders</h1>
+		<br>
+		<h3>Learn With Fun</h3>
+
+
+		<form action="load-game" method="post">
+<!-- 			<button class="button"> -->
+			<input class="button" type="submit" value="Play with G.K." />
+			<input type="hidden" name="obj" value="${playerObj}">
+			</form>
+		<!-- 	</button> -->
+		&nbsp &nbsp
+		
+		<form action="load-game-java" method="post">
+<!-- 			<button class="button"> -->
+			<input class="button" type="submit" value="Play with Java" />
+			<input type="hidden" name="obj" value="${playerObj}">
+			</form>
+		
+	</div>
 
 
 
-</div>
-<div class="d-flex align-content-center justify-content-center">
-<a href="game.jsp" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" style="margin-top:2.5%">Lets start</a>
-</div>
+	<div class="laan">
+		<img src="./images/la.png"> <img src="./images/sn.png"> <img
+			src="./images/la.png"> <img src="./images/sn.png">
+	</div>
+
+	<script>
+		function showMenu() {
+			var toggle = document.getElementById("mobileMenu");
+			if (toggle.style.height == "0px") {
+				toggle.style.height = "200px";
+			} else {
+				toggle.style.height = "0px";
+			}
+		}
+	</script>
+
 </body>
 </html>

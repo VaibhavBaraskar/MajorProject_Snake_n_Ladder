@@ -1,5 +1,8 @@
 package Entity;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -7,20 +10,26 @@ import javax.persistence.Table;
 @Table(name="leaderboard")
 public class Leaderboard {
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(nullable = false)
 	private int id;
+	@Column(nullable = false)
 	private String name;
-	private String score;
-	
-	
+	@Column(nullable = false)
+	private int javaScore;
+	@Column(nullable = false)
+	private int gkScore;
+
 	public Leaderboard() {
 		super();
 	}
-	public Leaderboard(int id, String name, String score) {
+	
+	public Leaderboard(int id, String name, int javaScore, int gkScore) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.score = score;
+		this.javaScore = javaScore;
+		this.gkScore = gkScore;
 	}
 	public int getId() {
 		return id;
@@ -34,12 +43,16 @@ public class Leaderboard {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getScore() {
-		return score;
+	public int getJavaScore() {
+		return javaScore;
 	}
-	public void setScore(String score) {
-		this.score = score;
+	public void setJavaScore(int javaScore) {
+		this.javaScore = javaScore;
 	}
-	
-
+	public int getGkScore() {
+		return gkScore;
+	}
+	public void setGkScore(int gkScore) {
+		this.gkScore = gkScore;
+	}
 }

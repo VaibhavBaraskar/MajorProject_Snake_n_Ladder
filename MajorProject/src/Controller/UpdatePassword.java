@@ -6,8 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Dao.UserDao;
+import Entity.OtpClass;
 
 @WebServlet("/update-password")
 public class UpdatePassword extends HttpServlet {
@@ -19,19 +21,24 @@ public class UpdatePassword extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String userNewPassword = request.getParameter("userNewPassword");
-		String confirmPassword = request.getParameter("confirmPassword");
-		String email = request.getParameter("email");
+		String userNewPassword = request.getParameter("password");
+		String confirmPassword = request.getParameter("confirm");
+		OtpClass otpObj = (OtpClass) request.getSession().getAttribute("otpObj");
+		String email = otpObj.getEmail();
 		
 		if(userNewPassword == null || confirmPassword == null || !userNewPassword.equals(confirmPassword))
 		{
-		    request.setAttribute("emailOtp", email);
 		    request.getRequestDispatcher("UpdatePassword.jsp").forward(request, response);
 		}
 		else
 		{
 			UserDao dao = new UserDao();
 			dao.confirmPassword(email, userNewPassword);
+			
+			HttpSession otpSession = request.getSession();
+			otpSession.removeAttribute("otpObj");
+			otpSession.invalidate();
+			
 			response.sendRedirect("login.jsp");
 		}
 		

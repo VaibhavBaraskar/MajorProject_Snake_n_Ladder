@@ -7,7 +7,7 @@
 		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/major_project_snake_n_ladder</property>
 		<property name="hibernate.connection.username">root</property>
-		<property name="hibernate.connection.password">root</property>
+		<property name="hibernate.connection.password">dac20</property>
 		
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL55Dialect</property>
 		
@@ -20,13 +20,7 @@
 		<mapping class="Entity.Player" />
 		<mapping class="Entity.Leaderboard" />
 		<mapping class="Entity.User"/>
-		
-		<!-- <mapping class="Entity.Java_Questions" /> -->
-		
-		<!-- <mapping class="Entity.Ladder" />
-		<mapping class="Entity.Snake" />
-		<mapping class="Entity.Tile" />
-		<mapping class="Entity.Dice" /> -->
+		<mapping class="Entity.JavaMcq"/>
 		
 	</session-factory>
 </hibernate-configuration>

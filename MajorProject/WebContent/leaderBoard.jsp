@@ -2,11 +2,18 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="Header.jsp"></jsp:include>
+
+<%
+	if(session.getAttribute("newSession") == null)
+		response.sendRedirect("login.jsp");
+%>  
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Snakes and Ladders</title>
+<title>Leader Board</title>
 
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -34,58 +41,74 @@
 </head>
 
 <body>
+	<div
+		class="bg-light d-flex align-items-center justify-content-center mt-5">
 
 
+		<div>
+			<table class="col-8 table table-striped table-dark">
+				<thead>
+					<tr>
+						<th scope="col">Rank</th>
+						<th scope="col">Name</th>
+						<th scope="col">G.K. Score</th>
+
+					</tr>
+				</thead>
+
+				<tbody>
+					<% 	int count=1;
+		    	if(count==1)
+		    	{
+		    	%>
+					<c:forEach var="item" items="${playerList}">
+						<tr>
+							<th scope="row"><%= count++ %></th>
+							<td>${item.name}</td>
+							<td>${item.gkScore}</td>
+
+						</tr>
+					</c:forEach>
+					<%
+			 }count=1; %>
+				</tbody>
+			</table>
+		</div>
+
+		<div>
+			<table class="col-8 table table-striped table-dark">
+				<thead>
+					<tr>
+						<th scope="col">Rank</th>
+						<th scope="col">Name</th>
+						<th scope="col">Java Score</th>
+
+					</tr>
+				</thead>
 
 
+				<tbody>
+					<% 	int count1=1;
+		    	if(count1==1)
+		    	{
+		    	%>
+					<c:forEach var="item" items="${playerList}">
+						<tr>
+							<th scope="row"><%= count++ %></th>
+							<td>${item.name}</td>
+							<td>${item.javaScore}</td>
 
-	<%
-        String p = request.getParameter("p");
-       if("1".equals(p)){
-    	 // System.out.println("channn"); 
-       }else
-       {
-    	   String redirectURL = "read-leaderboard";
- 	      response.sendRedirect(redirectURL); 
-       }
-    	   
-    
-    %>
-    
-   
+						</tr>
+					</c:forEach>
+					<%
+			 }count1=1; %>
+				</tbody>
+			</table>
+		</div>
 
-	<div class="bg-light d-flex align-items-center justify-content-center mt-5" >
-	
-	 
-
-		<table class="col-8 table table-striped table-dark">
-			<thead>
-				<tr>
-					<th scope="col">Rank</th>
-					<th scope="col">Name</th>
-					<th scope="col">Score</th>
-					
-				</tr>
-			</thead>
-			
-			<tbody>
-			<%! int  count=1; %>
-			<c:forEach var="item" items="${playerList}">
-				<tr>
-					<th scope="row"><%=count %></th>
-					<%count=count+1; %>
-					<td>${item.name}</td>
-					<td>${item.score}</td>
-					
-				</tr>
-			 </c:forEach>
-			</tbody>
-		</table>
-
-   
 	</div>
-	
-	
+
+
 
 </body>
 </html>

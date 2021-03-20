@@ -1,3 +1,4 @@
+<%@page import="Entity.JavaMcq"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 	
@@ -8,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
-<title>Question</title>
+<title>Java Question</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -64,87 +65,72 @@
     }
 }
 
-<%@ include file="QuestionCss.css"%>
+<%@ include file="./styles/QuestionCss.css"%>
 </style>
 
-<%-- <%
-class ValueObject{
-	
-	 private int id;
-	 private String option;
-	 private int pos;
-	 
-	 public int getId() {
-			return id;
-		}
 
-		public void setId(int id) {
-			this.id = id;
-		}
+<% 
+  	/* Getting Player Object from Session */
+	JavaMcq que = null;
 
-		public String getOption() {
-			return option;
-		}
-
-		public void setOption(String option) {
-			this.option = option;
-		}
-
-		public int getPos() {
-			return pos;
-		}
-
-		public void setPos(int pos) {
-			this.pos = pos;
-		}
-
-}
-
-ValueObject obj1=new ValueObject();
-obj1.setId(Integer.parseInt((String)request.getAttribute("que.id")));
-obj1.setOption((String)request.getAttribute("que.option1"));
-obj1.setPos(Integer.parseInt((String)request.getAttribute("valp.position")));
-
-%> --%>
+  	if(session.getAttribute("newSession") == null)
+		response.sendRedirect("login.jsp");
+	else
+	{
+		que = (JavaMcq) request.getSession().getAttribute("que");
+	}
+%>
 
 <body id="bdy">
 	<div class="container">
 		<div class="modal-dialog " style="margin-top: 12%">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h3>Q${que.id}.${que.question}</h3>
+					<h3>Q${que.getId()}.${que.getQuestion()}</h3>
 				</div>
 				<div class="modal-body">
 					<div class="col-xs-3 5"></div>
 					<div class="quiz" id="quiz" data-toggle="buttons">
 						
-						<a href="answer-match?id=${que.id}&option=${que.option1}&pos=${valp.position}"><label
-							class="element-animation1 btn btn-lg btn-danger btn-block mt-1"><span
-							class="btn-label"><i
-								class="glyphicon glyphicon-chevron-right"></i></span>
-							<h5>${que.option1}</h5></label></a><br>
+							
+							<form action="answer-match-java" method="post">
+								<label class="element-animation1 btn btn-lg btn-danger btn-block mt-1">
+								<span class="btn-label">
+								<i class="glyphicon glyphicon-chevron-right"></i></span>
+								<input type="submit" style="display: none">${que.getOption1()}</label>
+								<input type="hidden" name="id" value="${que.getOption1()}">
+							</form>
 							
 							
-						<a href="answer-match?id=${que.id}&option=${que.option2}&pos=${valp.position}"><label
-							class="element-animation2 btn btn-lg btn-danger btn-block mt-1"><span
-							class="btn-label"><i
-								class="glyphicon glyphicon-chevron-right"></i></span>
-							<h5>${que.option2}</h5></label></a><br>
-						
-						
-						<a href="answer-match?id=${que.id}&option=${que.option3}&pos=${valp.position}"><label
-							class="element-animation3 btn btn-lg btn-danger btn-block mt-1"><span
-							class="btn-label"><i
-								class="glyphicon glyphicon-chevron-right"></i></span>
-								<h5>${que.option3}</h5></label></a><br>
+							
+							<form action="answer-match-java" method="post">
+								<label class="element-animation2 btn btn-lg btn-danger btn-block mt-1">
+								<span class="btn-label">
+								<i class="glyphicon glyphicon-chevron-right"></i></span>
+								<input type="submit" style="display: none">${que.getOption2()}</label>
+								<input type="hidden" name="id" value="${que.getOption2()}">
+							</form>
 							
 							
-						<a href="answer-match?id=${que.id}&option=${que.option4}&pos=${valp.position}">
-						<label
-							class="element-animation4 btn btn-lg btn-danger btn-block mt-1"><span
-							class="btn-label"><i
-								class="glyphicon glyphicon-chevron-right"></i></span>
-							<h5>${que.option4}</h5></label></a>
+							
+							<form action="answer-match-java" method="post">
+								<label class="element-animation3 btn btn-lg btn-danger btn-block mt-1">
+								<span class="btn-label">
+								<i class="glyphicon glyphicon-chevron-right"></i></span>
+								<input type="submit" style="display: none">${que.getOption3()}</label>
+								<input type="hidden" name="id" value="${que.getOption3()}">
+							</form>
+							
+							
+							
+							<form action="answer-match-java" method="post">
+								<label class="element-animation4 btn btn-lg btn-danger btn-block mt-1">
+								<span class="btn-label">
+								<i class="glyphicon glyphicon-chevron-right"></i></span>
+								<input type="submit" style="display: none">${que.getOption4()}</label>
+								<input type="hidden" name="id" value="${que.getOption4()}">
+							</form>
+							
 							
 					</div>
 				</div>
